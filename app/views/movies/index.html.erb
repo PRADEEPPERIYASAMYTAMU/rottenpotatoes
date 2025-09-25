@@ -4,27 +4,16 @@
   <table id="movies">
     <thead>
       <tr>
-        <%# Helper logic to generate sortable table headers %>
-        <% def sortable_header(column, title) %>
-          <% new_direction = (column == @sort_by && @direction == 'asc') ? 'desc' : 'asc' %>
-          <% css_class = (column == @sort_by) ? "hilite" : nil %>
-          <% indicator = (column == @sort_by) ? (@direction == 'asc' ? '▲' : '▼') : '' %>
-          <th class="<%= css_class %>">
-            <%# The .html_safe is used to ensure the indicator symbol renders correctly %>
-            <%= link_to "#{title} #{indicator}".html_safe, movies_path(sort_by: column, direction: new_direction) %>
-          </th>
-        <% end %>
-
-        <%= sortable_header('title', 'Movie Title') %>
-        <%= sortable_header('rating', 'Rating') %>
-        <%= sortable_header('release_date', 'Release Date') %>
+        <%# The method definition has been removed. The calls below now use the helper. %>
+        <%= sortable_header(:title, 'Movie Title') %>
+        <%= sortable_header(:rating, 'Rating') %>
+        <%= sortable_header(:release_date, 'Release Date') %>
       </tr>
     </thead>
 
     <tbody>
       <% @movies.each do |movie| %>
         <tr>
-          <%# The movie title is now a link to its details page %>
           <td><%= link_to movie.title, movie_path(movie) %></td>
           <td><%= movie.rating %></td>
           <td><%= movie.release_date&.strftime("%B %d, %Y") %></td>
@@ -34,7 +23,6 @@
 
     <tfoot>
       <tr>
-        <%# The colspan is updated to 3 since there are now only 3 columns %>
         <td colspan="3">
           Showing movies <%= @pagy.from %>-<%= @pagy.to %> of <%= @pagy.count %> total.
         </td>
@@ -42,9 +30,9 @@
     </tfoot>
   </table>
 
-<div class="pagy-nav-container">
-  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-</div>
+  <div class="pagy-nav-container">
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  </div>
 
   <%= link_to "Add new movie", new_movie_path, class: 'btn btn-primary' %>
 </div>

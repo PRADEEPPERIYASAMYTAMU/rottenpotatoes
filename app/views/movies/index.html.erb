@@ -42,9 +42,9 @@
     </tfoot>
   </table>
 
-  <div class="pagy-nav-container">
-    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-  </div>
+<div class="pagy-nav-container">
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+</div>
 
   <%= link_to "Add new movie", new_movie_path, class: 'btn btn-primary' %>
 </div>

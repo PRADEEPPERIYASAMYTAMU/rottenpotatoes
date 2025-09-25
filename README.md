@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 🚀 Live Demo
 
-Things you may want to cover:
+You can access the hosted RottenPotatoes project on Heroku by visiting:
 
-* Ruby version
+🔗 [View RottenPotatoes on Heroku](https://young-ridge-84060-b10c6fef2509.herokuapp.com/movies?sort_by=release_date)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The app displays a sortable list of movies by release date, rating, and title. You can also add new movies or view detailed info for each entry.

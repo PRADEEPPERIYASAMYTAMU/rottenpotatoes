@@ -1,6 +1,7 @@
 <%= form_with(model: movie) do |form| %>
+  <%# Use a styled container for validation errors %>
   <% if movie.errors.any? %>
-    <div style="color: red">
+    <div class="form-errors">
       <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
       <ul>
         <% movie.errors.each do |error| %>
@@ -10,27 +11,29 @@
     </div>
   <% end %>
 
-  <div>
+  <%# Use a "form-group" class for consistent spacing %>
+  <div class="form-group">
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :rating %>
-    <%= form.select :rating, ['G', 'PG', 'PG-13', 'R', 'NC-17'] %>
+    <%= form.select :rating, ['G', 'PG', 'PG-13', 'R', 'NC-17'], include_blank: 'Select a rating' %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, rows: 5 %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :release_date %>
     <%= form.date_field :release_date %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <%# Use a "form-actions" class for button alignment %>
+  <div class="form-actions">
+    <%= form.submit "Save Movie" %>
   </div>
 <% end %>

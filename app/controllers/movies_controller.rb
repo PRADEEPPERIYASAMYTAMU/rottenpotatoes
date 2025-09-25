@@ -3,20 +3,23 @@ class MoviesController < ApplicationController
 
   def index
     # Whitelist of permitted sort columns
-    @allowed_sort_columns = %w[title rating release_date]
+    allowed_sort_columns = %w[title rating release_date]
     
-    # Determine the sort column
-    if params[:sort_by].in?(@allowed_sort_columns)
-      @sort_by = params[:sort_by]
-      session[:sort_by] = @sort_by
-    elsif session[:sort_by]
-      @sort_by = session[:sort_by]
+    # Determine the sort column from params or session
+    @sort_by = if params[:sort_by].in?(allowed_sort_columns)
+      session[:sort_by] = params[:sort_by]
     else
-      @sort_by = 'title' # Default sort column
+      session[:sort_by] || 'title'
     end
-
-    # Fetch movies and apply sorting
-    @movies = Movie.order(@sort_by)
+  
+    allowed_directions = %w[asc desc]
+  
+    @direction = if params[:direction].in?(allowed_directions)
+      session[:direction] = params[:direction]
+    else
+      session[:direction] || 'asc'
+    end
+    @pagy, @movies = pagy(Movie.order(@sort_by => @direction))
   end
 
   def show

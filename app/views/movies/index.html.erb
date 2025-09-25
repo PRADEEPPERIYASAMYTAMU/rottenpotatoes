@@ -4,32 +4,47 @@
   <table id="movies">
     <thead>
       <tr>
-        <th class="<%= 'hilite' if @sort_by == 'title' %>">
-          <%= link_to 'Movie Title', movies_path(:sort_by => 'title'), id: 'title_header' %>
-          <%= '▼' if @sort_by == 'title' %>
-        </th>
-        <th class="<%= 'hilite' if @sort_by == 'rating' %>">
-          <%= link_to 'Rating', movies_path(:sort_by => 'rating'), id: 'rating_header' %>
-          <%= '▼' if @sort_by == 'rating' %>
-        </th>
-        <th class="<%= 'hilite' if @sort_by == 'release_date' %>">
-          <%= link_to 'Release Date', movies_path(:sort_by => 'release_date'), id: 'release_date_header' %>
-          <%= '▼' if @sort_by == 'release_date' %>
-        </th>
-        <th>More Info</th>
+        <%# Helper logic to generate sortable table headers %>
+        <% def sortable_header(column, title) %>
+          <% new_direction = (column == @sort_by && @direction == 'asc') ? 'desc' : 'asc' %>
+          <% css_class = (column == @sort_by) ? "hilite" : nil %>
+          <% indicator = (column == @sort_by) ? (@direction == 'asc' ? '▲' : '▼') : '' %>
+          <th class="<%= css_class %>">
+            <%# The .html_safe is used to ensure the indicator symbol renders correctly %>
+            <%= link_to "#{title} #{indicator}".html_safe, movies_path(sort_by: column, direction: new_direction) %>
+          </th>
+        <% end %>
+
+        <%= sortable_header('title', 'Movie Title') %>
+        <%= sortable_header('rating', 'Rating') %>
+        <%= sortable_header('release_date', 'Release Date') %>
       </tr>
     </thead>
+
     <tbody>
       <% @movies.each do |movie| %>
         <tr>
-          <td><%= movie.title %></td>
+          <%# The movie title is now a link to its details page %>
+          <td><%= link_to movie.title, movie_path(movie) %></td>
           <td><%= movie.rating %></td>
           <td><%= movie.release_date&.strftime("%B %d, %Y") %></td>
-          <td><%= link_to "More about #{movie.title}", movie_path(movie) %></td>
         </tr>
       <% end %>
     </tbody>
+
+    <tfoot>
+      <tr>
+        <%# The colspan is updated to 3 since there are now only 3 columns %>
+        <td colspan="3">
+          Showing movies <%= @pagy.from %>-<%= @pagy.to %> of <%= @pagy.count %> total.
+        </td>
+      </tr>
+    </tfoot>
   </table>
 
-  <%= link_to "Add new movie", new_movie_path, :class => 'btn btn-primary' %>
+  <div class="pagy-nav-container">
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  </div>
+
+  <%= link_to "Add new movie", new_movie_path, class: 'btn btn-primary' %>
 </div>

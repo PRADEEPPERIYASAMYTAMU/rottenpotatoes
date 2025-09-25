@@ -1,12 +1,35 @@
-<% content_for :title, "Editing movie" %>
+<div class="container">
+  <h1>Editing: <%= @movie.title %></h1>
 
-<h1>Editing movie</h1>
+  <%# Section to display the movie's current details %>
+  <div class="movie-details-card">
+    <h2>Current Details</h2>
+    <p>
+      <strong>Rating:</strong> <%= @movie.rating %>
+    </p>
+    <p>
+      <strong>Released:</strong> <%= @movie.release_date&.strftime('%B %d, %Y') %>
+    </p>
+    <p>
+      <strong>Description:</strong><br>
+      <%= @movie.description %>
+    </p>
+  </div>
 
-<%= render "form", movie: @movie %>
+  <%# The form to edit the movie, styled by your existing custom.css %>
+  <h2>Edit Form</h2>
+  <%= render "form", movie: @movie %>
 
-<br>
+  <hr>
 
-<div>
-  <%= link_to "Show this movie", @movie %> |
-  <%= link_to "Back to movies", movies_path %>
+  <%# Navigation and Delete Button Section %>
+  <div class="page-actions">
+    <%= link_to "Show This Movie", @movie, class: 'btn' %>
+    <%= link_to "Back to Movies", movies_path, class: 'btn' %>
+
+    <%# A styled button for the delete action with a confirmation prompt %>
+    <%= button_to "Delete This Movie", @movie, method: :delete,
+        class: 'btn btn-danger',
+        data: { confirm: 'Are you sure you want to permanently delete this movie?' } %>
+  </div>
 </div>

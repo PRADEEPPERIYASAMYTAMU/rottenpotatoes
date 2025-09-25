@@ -1,0 +1,85 @@
+/* General Body and Layout Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+  }
+  
+  /* Table Styling */
+  #movies {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  #movies th, #movies td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  #movies thead {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  #movies th a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  #movies tbody tr:nth-child(even) {
+    background-color: #ecf0f1;
+  }
+  
+  #movies tbody tr:hover {
+    background-color: #bdc3c7;
+  }
+  
+  /* Style for the highlighted sort column header */
+  #movies .hilite {
+    background-color: #2980b9;
+  }
+  
+  /* Button and Link Styling */
+  .btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .btn-primary {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #27ae60;
+  }
+  
+  a {
+    color: #3498db;
+  }
+  
+  a:hover {
+    color: #2980b9;
+  }
